@@ -19,3 +19,7 @@ export const PRIORITY = {
     URGENT: 'Urgent',
     UNKNOWN: 'Unknown',
 };
+
+export function flashMessage(params) {
+    return params.props.flashMessage;
+}
