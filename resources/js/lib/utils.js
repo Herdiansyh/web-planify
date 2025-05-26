@@ -10,12 +10,12 @@ export const STATUS = {
     IN_PROGRESS: 'In Progress',
     ONREVIEW: 'On Review',
     DONE: 'Done',
-    UNKNOW: 'Unknown',
+    UNKNOWN: 'Unknown',
 };
 export const PRIORITY = {
     LOW: 'Low',
     MEDIUM: 'Medium',
     HIGH: 'High',
     URGENT: 'Urgent',
-    UNKNOW: 'Unknown',
+    UNKNOWN: 'Unknown',
 };
