@@ -7,7 +7,7 @@ const {
     AlertDialogFooter,
     AlertDialogCancel,
     AlertDialogAction,
-} = require('@/resources/js/components/ui/alert-dialog');
+} = require('@/resources/js/components/ui/Alert-dialog');
 const { Trigger } = require('@radix-ui/react-accordion');
 
 export function ActionDialog({ Trigger, action, title, description }) {
