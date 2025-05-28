@@ -17,10 +17,15 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+    // perbedaan fillable dan guarded: 
+    // // - fillable: hanya atribut yang di tulis secara explisit diizinkan untuk diisi secara massal
+    // // - guarded: semua atribut diizinkan kecuali atribut yang ditulis secara esplisit yang tidak diizinkan untuk diisi secara massal
     protected $fillable = [
         'name',
         'email',
         'password',
+        'username',
+        'avatar',
     ];
 
     /**
