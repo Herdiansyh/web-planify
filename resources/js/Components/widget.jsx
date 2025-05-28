@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 
-export default function widget({ className, ...props } /* React.FC<{ className?: string }> */) {
+export default function Widget({ className, ...props } /* React.FC<{ className?: string }> */) {
     const { bgColor, count, icon, title } = props;
     return (
         <div className={cn('relative overflow-hidden rounded-lg border bg-white px-4 pb-6 pt-5 sm:pt-6', className)}>
