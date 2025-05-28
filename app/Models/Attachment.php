@@ -16,4 +16,16 @@ class Attachment extends Model
         'link',
         'name',
     ];
+
+    public function user()
+    {
+        // belongsto = one to one relationship
+        return $this->belongsTo(User::class);
+    }
+    public function card()
+    {
+        // belongsto = one to one relationship
+        return $this->belongsTo(Card::class);
+    }   
+    
 }

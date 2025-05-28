@@ -50,4 +50,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function workspaces()
+    {
+        return $this->hasMany(Workspace::class);
+    }
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+    public function members()
+    {
+        return $this->hasMany(Member::class);
+    }
+    public function cards()
+    {
+        return $this->hasMany(Card::class);
+    }
 }
