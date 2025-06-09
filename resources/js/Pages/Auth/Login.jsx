@@ -65,7 +65,7 @@ export default function Login({ status, canResetPassword }) {
                                             <InputLabel htmlfor="password" value="Password" />
                                             {canResetPassword && (
                                                 <Link
-                                                    href="#"
+                                                    href={route('password.request')}
                                                     className="text-sm font-semibold text-red-500 hover:text-red-600"
                                                 >
                                                     Forgot your password?
@@ -117,6 +117,9 @@ export default function Login({ status, canResetPassword }) {
                             </div>
                         </CardContent>
                     </Card>
+
+                    {/* Credit text */}
+                    <footer className="mt-6 text-center text-xs text-gray-400">Made with ❤️ by Herdiansyah</footer>
                 </div>
             </div>
         </GuestLayout>
