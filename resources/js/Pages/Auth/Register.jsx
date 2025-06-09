@@ -1,4 +1,8 @@
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
+import { Button } from '@/resources/js/components/ui/Button';
 import { Card, CardContent, CardHeader } from '@/resources/js/components/ui/Card';
 import { Link, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
@@ -40,6 +44,75 @@ export default function Register() {
                             <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-sm">
                                 <form className="space-y-6" onSubmit={submit}>
                                     {/* form */}
+                                    <div>
+                                        <InputLabel htmlFor="name" value="Name" />
+                                        <TextInput
+                                            id="name"
+                                            name="name"
+                                            type="text"
+                                            value={data.name}
+                                            className="mt-1 block w-full"
+                                            isfocused={true}
+                                            onChange={(e) => setData('name', e.target.value)}
+                                            onErrors={
+                                                errors.name && <InputError className="mt-2" message={errors.name} />
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel htmlFor="email" value="Email" />
+                                        <TextInput
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            value={data.email}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData('email', e.target.value)}
+                                            onErrors={
+                                                errors.email && <InputError className="mt-2" message={errors.email} />
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel htmlFor="password" value="Password" />
+                                        <TextInput
+                                            id="password"
+                                            name="password"
+                                            type="password"
+                                            value={data.password}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData('password', e.target.value)}
+                                            onErrors={
+                                                errors.password && (
+                                                    <InputError className="mt-2" message={errors.password} />
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <InputLabel htmlFor="password_confirmation" value="Password Confirmation" />
+                                        <TextInput
+                                            id="password_confirmation"
+                                            name="password_confirmation"
+                                            type="password"
+                                            value={data.password_confirmation}
+                                            className="mt-1 block w-full"
+                                            onChange={(e) => setData('password_confirmation', e.target.value)}
+                                            onErrors={
+                                                errors.password_confirmation && (
+                                                    <InputError
+                                                        className="mt-2"
+                                                        message={errors.password_confirmation}
+                                                    />
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                    <div>
+                                        <Button type="submit" variant="red" className="w-full" disabled={processing}>
+                                            Register
+                                        </Button>
+                                    </div>
                                 </form>
 
                                 <p className="mt-10 text-center text-sm text-muted-foreground">
