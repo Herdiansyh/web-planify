@@ -33,7 +33,7 @@ export default function Create({ page_settings, visibilities }) {
                 if (flash) toast[flash.type](flash.message);
             },
             preserveScroll: true,
-            preserveState: true,
+            preserveState: false,
         });
     };
     return (
