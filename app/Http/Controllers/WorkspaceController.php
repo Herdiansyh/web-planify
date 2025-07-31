@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\WorkspaceVisibility;
 use App\Http\Requests\WorkSpaceRequest;
 use App\Http\Resources\WorkspaceResource;
+use App\Models\Member;
 use App\Models\User;
 use App\Models\Workspace;
 use App\Traits\HasFile;
@@ -80,6 +81,18 @@ class WorkspaceController extends Controller
         flashMessage('Workspace updated successfully','success');
         return to_route('workspaces.show', $workspace);
     }
+
+    public function destroy(Workspace $workspace): RedirectResponse
+    {
+        
+        $this->delete_file($workspace,'cover');
+        $this->delete_file($workspace,'logo');
+        $workspace->members()->delete();
+        $workspace->delete();
+        flashMessage('Workspace deleted successfully', 'success');
+        return to_route('dashboard');
+    }
+
     public function member_store(Workspace $workspace, Request $request): RedirectResponse
     {
         $request->validate([
@@ -103,4 +116,14 @@ class WorkspaceController extends Controller
         flashMessage('User invited to workspace successfully', 'success');
         return back();
     }
+
+    public function member_destroy (Workspace $workspace, Member $member): RedirectResponse
+    {
+       
+
+        $member->delete();
+        flashMessage('Member removed from workspace successfully', 'success');
+        return back();
+    }
+
 }
