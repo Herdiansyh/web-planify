@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/resources/js/components/u
 import { Button } from '@/resources/js/components/ui/Button';
 import { Card, CardContent } from '@/resources/js/components/ui/Card';
 import { Transition } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
 
 export default function MemberCard({ action, members }) {
@@ -84,13 +84,32 @@ export default function MemberCard({ action, members }) {
                   </div>
                 </div>
                 <div className="ml-4 flex shrink-0">
-                  <Button
-                    variant="link"
-                    className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
-                    onClick={() => console.log('delete')}
-                  >
-                    Delete
-                  </Button>
+                  {member.role != 'owner' ? (
+                    <Button
+                      variant="link"
+                      className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
+                      onClick={() =>
+                        router.delete(
+                          route('member_card.destroy', {
+                            card: member.memberable_id,
+                            member: member.id,
+                          }),
+                          {
+                            preserveScroll: true,
+                            preserveState: true,
+                            onSuccess: (success) => {
+                              const flash = flashMessage(success);
+                              if (flash) toast[flash.type](flash.message);
+                            },
+                          },
+                        )
+                      }
+                    >
+                      Delete
+                    </Button>
+                  ) : (
+                    <Button variant="ghost">{member.role}</Button>
+                  )}
                 </div>
               </li>
             ))}

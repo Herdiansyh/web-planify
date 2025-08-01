@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 class MemberCardController extends Controller
 {
     //
-    public function member_store (Card $card, Request $request): RedirectResponse{
+    public function store (Card $card, Request $request): RedirectResponse{
         $request->validate([
             'email' =>['required', 'email', 'string'],
         ]);
@@ -34,6 +35,12 @@ class MemberCardController extends Controller
         ]);
         
         flashMessage('Member successfully invited');
+        return back();
+    }
+
+    public function destroy(Card $card, Member $member): RedirectResponse{
+        $member->delete();
+        flashMessage('Member successfully deleted');
         return back();
     }
 }
