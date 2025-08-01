@@ -23,11 +23,7 @@ export default function Edit({ card, page_settings, statuses, priorities, worksp
         </div>
         <div className="grid grid-cols-1 gap-x-4 gap-y-8 pt-10 md:grid-cols-3">
           <HeaderForm title="attachment" subtitle="Please add attachment to the card" />
-          <AttachmentCard
-            action={route('attachments.store', {
-              card: card,
-            })}
-          />
+          <AttachmentCard action={route('attachments.store', [card])} attachments={card.attachments} />
         </div>
       </div>
     </>
