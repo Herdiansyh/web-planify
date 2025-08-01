@@ -1,26 +1,26 @@
 import { STATUS } from '@/lib/utils';
 import { Badge } from '@/resources/js/components/ui/Badge';
 
-export default function GetPriorityBadge({ status }) {
+export default function GetStatusBage({ status }) {
   const { TODO, INPROGRESS, ONREVIEW, DONE, UNKNOWN } = STATUS;
   let badge, text;
 
   switch (status) {
     case TODO:
       badge = 'bg-red-500 hover:bg-red-600';
-      text = 'Urgent';
+      text = TODO;
       break;
     case INPROGRESS:
       badge = 'bg-yellow-500 hover:bg-yellow-600';
-      text = 'High';
+      text = INPROGRESS;
       break;
     case ONREVIEW:
       badge = 'bg-blue-500 hover:bg-blue-600';
-      text = 'Medium';
+      text = ONREVIEW;
       break;
     case DONE:
       badge = 'bg-green-500 hover:bg-green-600';
-      text = 'Low';
+      text = DONE;
       break;
     default:
       badge = '';

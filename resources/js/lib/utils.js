@@ -7,7 +7,7 @@ export function cn(...inputs) {
 
 export const STATUS = {
   TODO: 'To Do',
-  IN_PROGRESS: 'In Progress',
+  INPROGRESS: 'In Progress',
   ONREVIEW: 'On Review',
   DONE: 'Done',
   UNKNOWN: 'Unknown',

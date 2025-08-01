@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\CardPriority;
 use App\Enums\CardStatus;
 use App\Http\Requests\CardRequest;
+use App\Http\Resources\CardSingleResource;
 use App\Models\Card;
 use App\Models\Workspace;
 use Illuminate\Http\RedirectResponse;
@@ -45,6 +46,17 @@ class CardController extends Controller
         flashMessage('Card created successfully', 'success');
         return to_route('workspaces.show', [$workspace]);
   }
+public function show(Workspace $workspace, Card $card): Response
+{
+    return inertia('Cards/Show', [
+        'card' => fn() => new CardSingleResource($card->load(['members', 'user', 'tasks','attachments'])),
+        'page_settings' => [
+            'title' => 'Detail Card',
+            'subtitle' => 'You can see card information',
+        ]
+        ]);
+}
+
   public function ordering (Workspace $workspace, string $status): int{
 $last_card =Card::query()
             ->where('workspace_id', $workspace->id)
