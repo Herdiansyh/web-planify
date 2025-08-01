@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MemberCardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkspaceController;
 use Illuminate\Foundation\Application;
@@ -54,6 +55,11 @@ Route::controller(CardController::class)->group(function(){
     Route::delete('cards/{workspace:slug}/destroy/{card}', 'destroy')
         ->name('cards.destroy');
 })->middleware('auth');
+
+Route::controller(MemberCardController::class)->group( function(){
+     Route::post('cards/member/{card}/store', 'member_store')->name('members_card.store');
+})->middleware('auth');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
