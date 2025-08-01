@@ -1,14 +1,18 @@
+import { ActionDialog } from '@/Components/ActionDialog';
 import GetPriorityBadge from '@/Components/GetPriorityBadge';
 import AppLayout from '@/Layouts/AppLayout';
+import { flashMessage } from '@/lib/utils';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/resources/js/components/ui/Card';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/resources/js/components/ui/Dropdown-menu';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { PiDotsThreeOutlineFill, PiPlus } from 'react-icons/pi';
+import { toast } from 'sonner';
 
 export default function Show({ ...props }) {
   const workspace = props.workspace;
@@ -89,6 +93,25 @@ export default function Show({ ...props }) {
                               <DropdownMenuItem asChild>
                                 <Link href={route('cards.edit', [workspace, card])}>Edit</Link>
                               </DropdownMenuItem>
+                              <DropdownMenuGroup>
+                                <ActionDialog
+                                  trigger={
+                                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Delete</DropdownMenuItem>
+                                  }
+                                  title="delete card"
+                                  description="are you sure you want to delete card?"
+                                  action={() =>
+                                    router.delete(route('cards.destroy', [workspace, card]), {
+                                      preserveScroll: true,
+                                      preserveState: true,
+                                      onSuccess: (success) => {
+                                        const flash = flashMessage(success);
+                                        if (flash) toast[flash.type](flash.message);
+                                      },
+                                    })
+                                  }
+                                />
+                              </DropdownMenuGroup>
                             </DropdownMenuContent>
                           </DropdownMenu>
                         </div>

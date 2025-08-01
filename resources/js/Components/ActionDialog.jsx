@@ -1,19 +1,19 @@
-const {
+import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogCancel,
-  AlertDialogAction,
-} = require('@/resources/js/components/ui/Alert-dialog');
-const { Trigger } = require('@radix-ui/react-accordion');
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/resources/js/components/ui/Alert-dialog';
+import { AlertDialogTrigger } from '@radix-ui/react-alert-dialog';
 
-export function ActionDialog({ Trigger, action, title, description }) {
+export function ActionDialog({ trigger, action, title, description }) {
   return (
     <AlertDialog>
-      <AlertDialog.Trigger asChild>{Trigger}</AlertDialog.Trigger>
+      <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -21,7 +21,7 @@ export function ActionDialog({ Trigger, action, title, description }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={action}>Continue </AlertDialogAction>
+          <AlertDialogAction onClick={action}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
