@@ -7,8 +7,9 @@ import { Card, CardContent } from '@/resources/js/components/ui/Card';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
+import TaskListCard from './TaskListCard';
 
-export default function TaskCard({ action }) {
+export default function TaskCard({ action, tasks }) {
   const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
     title: '',
   });
@@ -68,6 +69,7 @@ export default function TaskCard({ action }) {
             </Transition>
           </div>
         </form>
+        <TaskListCard tasks={tasks} />
       </CardContent>
     </Card>
   );
