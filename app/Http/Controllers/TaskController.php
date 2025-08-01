@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Card;
+use App\Models\Task;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -20,5 +21,11 @@ class TaskController extends Controller
         ]);
         flashMessage('Tasks was saved successfully');
         return back(); 
+    }
+    public function destroy (Card $card, Task $task) : RedirectResponse
+    {
+        $task->delete();
+        flashMessage('Task was deleted successfully');
+        return back();
     }
 }
