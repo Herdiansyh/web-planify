@@ -2,13 +2,14 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import { flashMessage } from '@/lib/utils';
+import { Avatar, AvatarFallback, AvatarImage } from '@/resources/js/components/ui/Avatar';
 import { Button } from '@/resources/js/components/ui/Button';
 import { Card, CardContent } from '@/resources/js/components/ui/Card';
 import { Transition } from '@headlessui/react';
 import { useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
 
-export default function MemberCard({ action }) {
+export default function MemberCard({ action, members }) {
   const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
     email: '',
   });
@@ -68,6 +69,33 @@ export default function MemberCard({ action }) {
             </Transition>
           </div>
         </form>
+        <div className="space-y-4 py-6">
+          <ul className="divide-y divide-gray-100 rounded-md border border-gray-200" role="list">
+            {members.map((member, index) => (
+              <li key={index} className="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-4">
+                <div className="flex w-0 flex-1 items-center">
+                  <Avatar>
+                    <AvatarImage src={member.user.avatar} />
+                    <AvatarFallback>{member.user.name.substring(0, 1)}</AvatarFallback>
+                  </Avatar>
+                  <div className="ml-4 flex min-w-0 flex-col">
+                    <span className="truncate font-medium"> {member.user.name}</span>
+                    <span className="hidden text-muted-foreground sm:block">{member.user.email}</span>
+                  </div>
+                </div>
+                <div className="ml-4 flex shrink-0">
+                  <Button
+                    variant="link"
+                    className="font-medium text-red-500 hover:text-red-600 hover:no-underline"
+                    onClick={() => console.log('delete')}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </CardContent>
     </Card>
   );

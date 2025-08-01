@@ -17,6 +17,7 @@ export default function Edit({ card, page_settings, statuses, priorities, worksp
             action={route('members_card.store', {
               card: card,
             })}
+            members={card.members}
           />
         </div>
       </div>
