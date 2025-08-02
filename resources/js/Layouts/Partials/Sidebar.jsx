@@ -40,7 +40,7 @@ export default function Sidebar({ auth, url, workspaces }) {
             </li>
             <li>
               <Link
-                href="#"
+                href={route('mytasks.index')}
                 className={cn(
                   url.startsWith('/mytask') ? 'bg-red-500 text-white' : 'text-foreground hover:bg-gray-100',
                   'group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-relaxed',

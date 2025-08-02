@@ -15,22 +15,38 @@ use Inertia\Response;
 class CardController extends Controller
 {
 
-    public function create(Workspace $workspace):Response
-    {
-        return inertia('Cards/Create', [
-           'page_settings' => [
+    // public function create(Workspace $workspace):Response
+    // {
+    //     return inertia('Cards/Create', [
+    //        'page_settings' => [
+    //         'title' => 'Create Card',
+    //         'subtitle' => 'Create a new card in the workspace',
+    //         'method' => 'POST',
+    //         'action' => route('cards.store', $workspace),
+    //        ],
+    //        'status'=> request()->status ?? 'To Do',
+    //        'statuses' => CardStatus::options(),
+    //        'priority' => request()->priority ?? CardPriority::UNKNOWN->value,
+    //        'priorities' => CardPriority::options(),
+    //           'workspace' => fn()=>$workspace->only ('slug'),
+    //     ]); 
+    // }
+public function create(Workspace $workspace): Response
+{
+    return inertia('Cards/Create', [
+        'page_settings' => [
             'title' => 'Create Card',
             'subtitle' => 'Create a new card in the workspace',
             'method' => 'POST',
             'action' => route('cards.store', $workspace),
-           ],
-           'status'=> request()->status ?? 'To Do',
-           'statuses' => CardStatus::options(),
-           'priority' => request()->priority ?? CardPriority::UNKNOWN->value,
-           'priorities' => CardPriority::options(),
-              'workspace' => fn()=>$workspace->only ('slug'),
-        ]); 
-    }
+        ],
+        'status_from_query' => request()->status ?? 'To Do',
+        'priority_from_query' => request()->priority ?? CardPriority::UNKNOWN->value,
+        'statuses' => CardStatus::options(),
+        'priorities' => CardPriority::options(),
+        'workspace' => fn () => $workspace->only('slug'),
+    ]);
+}
 
     public function store(Workspace $workspace, CardRequest $request): RedirectResponse
     {

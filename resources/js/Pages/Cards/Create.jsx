@@ -8,16 +8,28 @@ import { Button } from '@/resources/js/components/ui/Button';
 import { Card, CardContent } from '@/resources/js/components/ui/Card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/resources/js/components/ui/Select';
 import { Transition } from '@headlessui/react';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { toast } from 'sonner';
 
 export default function Create({ page_settings, statuses, priorities, workspace }) {
+  // const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
+  //   title: '',
+  //   description: '',
+  //   deadline: '',
+  //   status: 'To Do',
+  //   priority: 'Unknown',
+  //   _method: page_settings.method,
+  // });
+  const { props } = usePage();
+  const initialStatus = props.status_from_query || 'To Do';
+  const initialPriority = props.priority_from_query || 'Unknown';
+
   const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
     title: '',
     description: '',
     deadline: '',
-    status: 'To Do',
-    priority: 'Unknown',
+    status: initialStatus,
+    priority: initialPriority,
     _method: page_settings.method,
   });
   const onHandleChange = (e) => {
