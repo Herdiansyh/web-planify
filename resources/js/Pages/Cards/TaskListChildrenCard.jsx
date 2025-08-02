@@ -28,6 +28,7 @@ export default function TaskListChildrenCard({ children }) {
                       preserveState: true,
                       onSuccess: (success) => {
                         const flash = flashMessage(success);
+                        console.log('FLASH VALUE:', flash);
                         if (flash) toast[flash.type](flash.message);
                       },
                     },

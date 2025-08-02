@@ -2,7 +2,7 @@ import { ActionDialog } from '@/Components/ActionDialog';
 import GetPriorityBadge from '@/Components/GetPriorityBadge';
 import AppLayout from '@/Layouts/AppLayout';
 import { flashMessage } from '@/lib/utils';
-import { Card, CardDescription, CardHeader, CardTitle } from '@/resources/js/components/ui/Card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/resources/js/components/ui/Card';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/resources/js/components/ui/Dropdown-menu';
 import { Link, router } from '@inertiajs/react';
-import { PiDotsThreeOutlineFill, PiPlus } from 'react-icons/pi';
+import { PiCheckSquare, PiDotsThreeOutlineFill, PiLinkSimple, PiPlus, PiUser } from 'react-icons/pi';
 import { toast } from 'sonner';
 
 export default function Show({ ...props }) {
@@ -122,6 +122,56 @@ export default function Show({ ...props }) {
                           {card.description}
                         </CardDescription>
                       </CardHeader>
+                      <CardContent>
+                        <div className="flex flex-col space-y-8">
+                          {card.has_task && (
+                            <div>
+                              <div className="mb-1.5 flex items-center justify-between">
+                                <p className="text-sm leading-relaxed tracking-tighter text-muted-foreground">
+                                  <span className="font-medium text-red-500">{card.percentage}</span> of 100
+                                </p>
+                                <p>
+                                  <p className="text-sm leading-relaxed tracking-tighter text-muted-foreground">
+                                    {card.deadline > 0 ? (
+                                      <span>{card.deadline} days left</span>
+                                    ) : card.deadline == 0 ? (
+                                      <span className="text-yellow-500">Today is deadline</span>
+                                    ) : (
+                                      <span className="text-red-500">Overdue</span>
+                                    )}
+                                  </p>
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                          <div className="flex items-center justify-between gap-x-2 whitespace-nowrap">
+                            {card.has_task && (
+                              <div className="flex items-center gap-x-1">
+                                <PiCheckSquare className="h-3 w-3 text-muted-foreground" />
+                                <span className="text-xs leading-relaxed tracking-tighter text-muted-foreground">
+                                  {card.tasks_count} Tasks
+                                </span>
+                              </div>
+                            )}
+                            {card.members_count > 1 && (
+                              <div className="flex items-center gap-x-1">
+                                <PiUser className="h-3 w-3 text-muted-foreground" />
+                                <span className="text-xs leading-relaxed tracking-tighter text-muted-foreground">
+                                  {card.members_count} Members
+                                </span>
+                              </div>
+                            )}
+                            {card.has_attachments && card.attachments_count > 0 && (
+                              <div className="flex items-center gap-x-1">
+                                <PiLinkSimple className="h-3 w-3 text-muted-foreground" />
+                                <span className="text-xs leading-relaxed tracking-tighter text-muted-foreground">
+                                  {card.attachments_count} Files
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
                     </Card>
                   ))}
               </div>

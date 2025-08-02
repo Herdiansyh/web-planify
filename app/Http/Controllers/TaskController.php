@@ -63,7 +63,7 @@ class TaskController extends Controller
             $parent->update([
                 'is_completed' => false,
             ]);
-            flashMessage("task is successfully", ($previous_is_completed? 'unmarked' :'marked'));
+            flashMessage("task is successfully". ($previous_is_completed ? ' unmarked' :' marked'));
         }
         return back();
     }

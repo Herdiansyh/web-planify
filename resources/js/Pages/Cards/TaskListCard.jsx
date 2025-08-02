@@ -2,6 +2,7 @@ import InputError from '@/Components/InputError';
 import TextInput from '@/Components/TextInput';
 import { flashMessage } from '@/lib/utils';
 import { Button } from '@/resources/js/components/ui/Button';
+import { Progress } from '@/resources/js/components/ui/Progress';
 import { router, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { PiPlus, PiSquaresFour } from 'react-icons/pi';
@@ -34,6 +35,7 @@ export default function TaskListCard({ tasks }) {
         onSuccess: (success) => {
           reset();
           const flash = flashMessage(success);
+
           if (flash) toast[flash.type](flash.message);
         },
       },
@@ -72,6 +74,7 @@ export default function TaskListCard({ tasks }) {
                             preserveState: true,
                             onSuccess: (success) => {
                               const flash = flashMessage(success);
+
                               if (flash) toast[flash.type](flash.message);
                             },
                           },
@@ -82,6 +85,7 @@ export default function TaskListCard({ tasks }) {
                     </Button>
                   </div>
                 </div>
+                <Progress className="mb-4 h-2.5" value={task.percentage} />
                 <TaskListChildrenCard children={task.children} />
                 {showFormItem[task.id] || task.children.length > 0 ? (
                   <form onSubmit={(e) => onHandleSubmit(e, task)}>
@@ -96,7 +100,7 @@ export default function TaskListCard({ tasks }) {
                       placeholder="Add items to task"
                     />
                     <div className="mt-4 flex items-center gap-x-2">
-                      <Button type="submit" size="sm" disable={processing}>
+                      <Button type="submit" size="sm" disabled={processing}>
                         <PiPlus className="mr-1 h-4 w-4" />
                         Add
                       </Button>
