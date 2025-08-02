@@ -26,7 +26,7 @@ export default function MemberWorkspace({ action, members }) {
         if (flash) toast[flash.type](flash.message);
       },
       preserveScroll: true,
-      preserveState: false,
+      preserveState: true,
     });
   };
   return (

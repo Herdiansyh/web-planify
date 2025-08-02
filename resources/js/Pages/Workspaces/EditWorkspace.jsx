@@ -26,7 +26,7 @@ export default function EditWorkspace({ workspace, page_settings, visibilities }
         if (flash) toast[flash.type](flash.message);
       },
       preserveScroll: true,
-      preserveState: false,
+      preserveState: true,
     });
   };
   return (
