@@ -26,6 +26,14 @@ export default function Index({ page_settings, ...props }) {
     only: ['tasks'],
   });
 
+  const onSortable = (field) => {
+    setParams({
+      ...params,
+      field: field,
+      direction: params.direction === 'asc' ? 'desc' : 'asc',
+    });
+  };
+
   return (
     <>
       <Header title={page_settings.title} subtitle={page_settings.subtitle} />
@@ -42,7 +50,7 @@ export default function Index({ page_settings, ...props }) {
               <SelectValue placeholder="load" />
             </SelectTrigger>
             <SelectContent>
-              {[1, 3, 10, 25, 50, 75, 100].map((number, index) => (
+              {[10, 25, 50, 75, 100].map((number, index) => (
                 <SelectItem key={index} value={number}>
                   {number}
                 </SelectItem>
@@ -60,7 +68,7 @@ export default function Index({ page_settings, ...props }) {
                   <thead>
                     <tr className="bg-gray-50">
                       <th className="px-2 py-3.5 text-left text-sm font-semibold text-foreground" scope="col">
-                        <Button variant="ghost" className="group inline-flex">
+                        <Button variant="ghost" className="group inline-flex" onClick={() => onSortable('title')}>
                           Title
                           <span className="ml-2 flex-none rounded text-foreground">
                             <PiArrowsDownUp className="h-5 w-5" />
