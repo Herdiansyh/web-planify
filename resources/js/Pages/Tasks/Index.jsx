@@ -1,5 +1,6 @@
 import GetStatusBage from '@/Components/GetStatusBadge';
 import Header from '@/Components/Header';
+import { UseFilter } from '@/Hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { Button } from '@/resources/js/components/ui/Button';
 import { Card, CardContent, CardFooter } from '@/resources/js/components/ui/Card';
@@ -9,14 +10,47 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/resources/js/components/ui/Dropdown-menu';
+import { Input } from '@/resources/js/components/ui/Input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/resources/js/components/ui/Select';
 import { Link } from '@inertiajs/react';
+import { useState } from 'react';
 import { PiArrowLeft, PiArrowRight, PiArrowsDownUp, PiDotsThreeOutlineVerticalFill } from 'react-icons/pi';
 
 export default function Index({ page_settings, ...props }) {
   const { data: tasks, meta, links } = props.tasks;
+  const [params, setParams] = useState(props.state);
+
+  UseFilter({
+    route: route('mytasks.index'),
+    values: params,
+    only: ['tasks'],
+  });
+
   return (
     <>
       <Header title={page_settings.title} subtitle={page_settings.subtitle} />
+      <div className="my-4 flex flex-col justify-between space-y-1 sm:flex-row sm:space-x-4 sm:space-y-0">
+        <div className="flex w-full flex-col gap-3 sm:flex-row">
+          <Input
+            className="w-full sm:w-1/4"
+            placeholder="search..."
+            value={params?.search}
+            onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))}
+          />
+          <Select value={params?.load} onValueChange={(e) => setParams({ ...params, load: e })}>
+            <SelectTrigger className="w-full sm:w-24">
+              <SelectValue placeholder="load" />
+            </SelectTrigger>
+            <SelectContent>
+              {[1, 3, 10, 25, 50, 75, 100].map((number, index) => (
+                <SelectItem key={index} value={number}>
+                  {number}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
       <Card>
         <CardContent>
           <div className="my-8 flow-root">
