@@ -8,7 +8,6 @@ import { Transition } from '@headlessui/react';
 import { router, useForm } from '@inertiajs/react';
 import { PiPaperclip } from 'react-icons/pi';
 import { toast } from 'sonner';
-
 export default function AttachmentCard({ action, attachments }) {
   const { data, setData, post, processing, errors, reset, recentlySuccessful } = useForm({
     file: '',

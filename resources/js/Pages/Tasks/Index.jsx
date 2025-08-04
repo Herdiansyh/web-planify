@@ -2,7 +2,7 @@ import GetStatusBage from '@/Components/GetStatusBadge';
 import Header from '@/Components/Header';
 import AppLayout from '@/Layouts/AppLayout';
 import { Button } from '@/resources/js/components/ui/Button';
-import { Card, CardContent } from '@/resources/js/components/ui/Card';
+import { Card, CardContent, CardFooter } from '@/resources/js/components/ui/Card';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,9 +10,10 @@ import {
   DropdownMenuTrigger,
 } from '@/resources/js/components/ui/Dropdown-menu';
 import { Link } from '@inertiajs/react';
-import { PiArrowsDownUp, PiDotsThreeOutlineVerticalFill } from 'react-icons/pi';
+import { PiArrowLeft, PiArrowRight, PiArrowsDownUp, PiDotsThreeOutlineVerticalFill } from 'react-icons/pi';
 
-export default function Index({ page_settings, tasks }) {
+export default function Index({ page_settings, ...props }) {
+  const { data: tasks, meta, links } = props.tasks;
   return (
     <>
       <Header title={page_settings.title} subtitle={page_settings.subtitle} />
@@ -87,6 +88,39 @@ export default function Index({ page_settings, tasks }) {
             </div>
           </div>
         </CardContent>
+        <CardFooter className="justify-between border-t pt-6 text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
+            Showing <span className="font-medium text-red-500">{meta.from}</span>of {meta.total}
+          </p>
+          {meta.has_pages && (
+            <div className="flex items-center gap-x-1">
+              <Button size="sm" variant="outline" asChild>
+                {links.prev ? (
+                  <Link href={links.prev}>
+                    <PiArrowLeft className="-ml-1 mr-1 size-4" />
+                  </Link>
+                ) : (
+                  <span>Prev</span>
+                )}
+              </Button>
+              {meta.links.slice(1, -1).map((link, index) => (
+                <Button key={index} size="sm" variant="outline" asChild>
+                  <Link href={link.url}>{link.label}</Link>
+                </Button>
+              ))}
+              <Button size="sm" variant="outline" asChild>
+                {links.next ? (
+                  <Link href={links.next}>
+                    Next
+                    <PiArrowRight className="-mr-1 ml-1 size-4" />
+                  </Link>
+                ) : (
+                  <span>Next</span>
+                )}
+              </Button>
+            </div>
+          )}
+        </CardFooter>
       </Card>
     </>
   );
