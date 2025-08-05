@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback } from '@/resources/js/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/resources/js/components/ui/avatar';
 import { Toaster } from '@/resources/js/components/ui/Sonner';
 import { Dialog, Transition } from '@headlessui/react';
 import { Head, Link, usePage } from '@inertiajs/react';
@@ -87,7 +87,8 @@ export default function AppLayout({ children, title }) {
           <Link href="#">
             <span className="sr-only">Your profile</span>
             <Avatar>
-              <AvatarFallback>X</AvatarFallback>
+              <AvatarImage src={auth.Avatar} />
+              <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
             </Avatar>
           </Link>
         </div>
