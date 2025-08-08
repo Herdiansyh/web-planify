@@ -50,24 +50,26 @@ export default function CardList({ card, workspace, handleDeleteCard }) {
               {card.title}
             </Link>
           </CardTitle>
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <PiDotsThreeOutlineFill className="size-4" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem asChild>
-                <Link href={route('cards.edit', [workspace, card])}>Edit</Link>
-              </DropdownMenuItem>
-              <DropdownMenuGroup>
-                <ActionDialog
-                  trigger={<DropdownMenuItem onSelect={(e) => e.preventDefault()}>Delete</DropdownMenuItem>}
-                  title="delete card"
-                  description="are you sure you want to delete card?"
-                  action={() => handleDeleteCard(card.id)}
-                />
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {card.can.edit_card && card.can.delete_card && (
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <PiDotsThreeOutlineFill className="size-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href={route('cards.edit', [workspace, card])}>Edit</Link>
+                </DropdownMenuItem>
+                <DropdownMenuGroup>
+                  <ActionDialog
+                    trigger={<DropdownMenuItem onSelect={(e) => e.preventDefault()}>Delete</DropdownMenuItem>}
+                    title="delete card"
+                    description="are you sure you want to delete card?"
+                    action={() => handleDeleteCard(card.id)}
+                  />
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
         <div>
           <GetPriorityBadge priority={card.priority} />

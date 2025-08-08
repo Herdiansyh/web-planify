@@ -14,6 +14,7 @@ use App\Traits\HasFile;
 use Inertia\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Response as InertiaResponse;
 
 class WorkspaceController extends Controller
@@ -70,6 +71,7 @@ class WorkspaceController extends Controller
 
     public function edit(Workspace $workspace): Response
     {
+        Gate::authorize('update_workspace', $workspace);
         return inertia(component : 'Workspaces/Settings', props: [
             'workspace' => fn()=> new WorkspaceResource($workspace->load('members')),
             'page_settings' => [
@@ -82,7 +84,8 @@ class WorkspaceController extends Controller
         ]);
     }
     public function update(Workspace $workspace, WorkSpaceRequest $request): RedirectResponse
-    {
+    {        Gate::authorize('update_workspace', $workspace);
+
         $workspace->update([
                'name' => $name = $request->name,
             'slug' => str()->slug($name . str()->uuid(10)),
@@ -97,7 +100,7 @@ class WorkspaceController extends Controller
 
     public function destroy(Workspace $workspace): RedirectResponse
     {
-        
+        Gate::authorize('delete_workspace', $workspace);
         $this->delete_file($workspace,'cover');
         $this->delete_file($workspace,'logo');
         $workspace->members()->delete();
@@ -108,6 +111,7 @@ class WorkspaceController extends Controller
 
     public function member_store(Workspace $workspace, Request $request): RedirectResponse
     {
+        Gate::authorize('member_workspace', $workspace);
         $request->validate([
             'email' => ['required', 'email', 'string'],
         ]);

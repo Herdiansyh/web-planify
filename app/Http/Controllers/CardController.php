@@ -10,6 +10,7 @@ use App\Models\Card;
 use App\Models\Workspace;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Response;
 
 class CardController extends Controller
@@ -96,6 +97,7 @@ public function edit(Workspace $workspace, Card $card) : Response{
 
 public function update(Workspace $workspace, Card $card, CardRequest $request): RedirectResponse
 {
+    Gate::authorize('update_card', $card);
     $last_status =$card->status->value;
     $card->update([
         'title' => $request->title,
@@ -114,6 +116,8 @@ public function update(Workspace $workspace, Card $card, CardRequest $request): 
 
 public function destroy(Workspace $workspace,Card $card): RedirectResponse
 {
+        Gate::authorize('delete_card', $card);
+
     $last_status = $card->status->value;
     $card->delete();
     $this->adjustOrdering($workspace, $last_status);

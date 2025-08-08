@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Enums\WorkspaceVisibility;
+use App\Observers\WorkspaceObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
+#[ObservedBy(WorkspaceObserver::class)]
 class Workspace extends Model
 {
     //
