@@ -9,17 +9,16 @@ import { Card, CardContent } from '@/resources/js/components/ui/Card';
 import { useForm } from '@inertiajs/react';
 import { toast } from 'sonner';
 
-export default function Create({ page_settings }) {
+export default function Edit({ user, page_settings }) {
   const { data, setData, processing, reset, post, errors } = useForm({
-    name: '',
-    username: '',
-    email: '',
+    name: user.name ?? '',
+    username: user.username ?? '',
+    email: user.email ?? '',
     password: '',
     password_confirmation: '',
     avatar: '',
     _method: page_settings.method,
   });
-
   const onHandleSubmit = (e) => {
     e.preventDefault();
 
@@ -61,6 +60,7 @@ export default function Create({ page_settings }) {
                         type="text"
                         name="username"
                         id="username"
+                        autoComplete="new-username"
                         value={data.username}
                         onChange={(e) => setData(e.target.name, e.target.value)}
                         onErrors={errors.username && <InputError message={errors.username} />}
@@ -85,6 +85,7 @@ export default function Create({ page_settings }) {
                         name="password"
                         id="password"
                         value={data.password}
+                        autoComplete="new-password"
                         onChange={(e) => setData(e.target.name, e.target.value)}
                         onErrors={errors.password && <InputError message={errors.password} />}
                       />
@@ -139,4 +140,4 @@ export default function Create({ page_settings }) {
   );
 }
 // TOMBOL RESET BELUM BERUFNGSI
-Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
+Edit.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
