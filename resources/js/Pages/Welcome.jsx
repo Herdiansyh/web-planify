@@ -66,12 +66,12 @@ export default function Welcome() {
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-2xl text-center">
                 <h1 className="text-4xl font-bold leading-relaxed tracking-tight text-foreground sm:text-6xl">
-                  Transforming Ideas into Reality with Your Kanban Board
+                  Mengubah Ide Menjadi Kenyataan dengan Papan Kanban Anda{' '}
                 </h1>
                 <p className="mt-6 text-lg leading-8 text-muted-foreground">
-                  Where creativity meets productivity! With our intuitive Kanban Board, you can effortlessly organize
-                  your tasks into clear categories. Boost your team's efficiency, track project progress, and witness
-                  your ideas come to life.
+                  Di mana kreativitas bertemu dengan produktivitas! Dengan papan Kanban yang intuitif, Anda dapat dengan
+                  mudah mengorganisir tugas-tugas Anda ke dalam kategori yang jelas. Tingkatkan efisiensi tim Anda,
+                  lacak kemajuan proyek, dan saksikan ide-ide Anda menjadi kenyataan.
                 </p>
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                   <Button variant="red" asChild>
