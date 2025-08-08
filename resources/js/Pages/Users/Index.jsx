@@ -2,6 +2,7 @@ import { ActionDialog } from '@/Components/ActionDialog';
 import Header from '@/Components/Header';
 import { UseFilter } from '@/Hooks/UseFilter';
 import AppLayout from '@/Layouts/AppLayout';
+import { flashMessage } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/resources/js/components/ui/Avatar';
 import { Button } from '@/resources/js/components/ui/Button';
 import { Card, CardContent, CardFooter } from '@/resources/js/components/ui/Card';
@@ -13,7 +14,7 @@ import {
 } from '@/resources/js/components/ui/Dropdown-menu';
 import { Input } from '@/resources/js/components/ui/Input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/resources/js/components/ui/Select';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { useState } from 'react';
 import {
   PiArrowLeft,
@@ -22,6 +23,7 @@ import {
   PiArrowsDownUp,
   PiDotsThreeOutlineVerticalFill,
 } from 'react-icons/pi';
+import { toast } from 'sonner';
 
 export default function Index({ page_settings, ...props }) {
   const { data: users, meta, links } = props.users;
@@ -158,7 +160,16 @@ export default function Index({ page_settings, ...props }) {
                                     }
                                     title="Delete People"
                                     description="Are you sure you want to delete this people?"
-                                    action={() => console.log('delete peoples')}
+                                    action={() =>
+                                      router.delete(route('users.destroy', [user]), {
+                                        preserveState: true,
+                                        preserveScroll: true,
+                                        onSuccess: (success) => {
+                                          const flash = flashMessage(success);
+                                          if (flash) toast[flash.type](flash.message);
+                                        },
+                                      })
+                                    }
                                   ></ActionDialog>
                                 </DropdownMenu>
                               </DropdownMenuContent>
