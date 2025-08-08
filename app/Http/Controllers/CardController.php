@@ -61,10 +61,7 @@ public function create(Workspace $workspace): Response
             'priority' => $request->priority,
         ]);
 
-         $card->members()->create([
-            'user_id' => $request->user()->id,
-            'role' => $card->user_id== $request->user()->id?'owner':'Member',
-        ]);
+      
 
         flashMessage('Card created successfully', 'success');
         return to_route('cards.edit', [$workspace, $card]);
